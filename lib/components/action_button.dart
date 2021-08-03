@@ -23,11 +23,11 @@ class ActionButton extends StatelessWidget {
               case 'Send':
                 Provider.of<BankProvider>(context, listen: false)
                     .openAction(context);
-                Provider.of<BankProvider>(context, listen: false).sendMoney();
+                //Provider.of<BankProvider>(context, listen: false).sendMoney();
                 break;
               case 'Request':
-                Provider.of<BankProvider>(context, listen: false)
-                    .requestMoney();
+                // Provider.of<BankProvider>(context, listen: false)
+                //     .requestMoney();
                 break;
               case 'Exchange':
                 Provider.of<CurrencyProvider>(context, listen: false)

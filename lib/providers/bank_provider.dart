@@ -46,17 +46,17 @@ class BankProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void sendMoney() {
-    // Fixed amount = $100
-    _credit = _credit! - 100;
-    notifyListeners();
-  }
+  // void sendMoney() {
+  //   // Fixed amount = $100
+  //   _credit = _credit! - 100;
+  //   notifyListeners();
+  // }
 
-  void requestMoney() {
-    // Fixed amount = $100
-    _credit = _credit! + 100;
-    notifyListeners();
-  }
+  // void requestMoney() {
+  //   // Fixed amount = $100
+  //   _credit = _credit! + 100;
+  //   notifyListeners();
+  // }
 
   void setCredit(double credit) {
     _credit = credit;
