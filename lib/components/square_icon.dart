@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class SquareIcon extends StatelessWidget {
-  const SquareIcon({Key? key}) : super(key: key);
+  const SquareIcon({Key? key, this.iconData, this.outline}) : super(key: key);
+
+  final IconData? iconData;
+  final Color? outline;
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +22,8 @@ class SquareIcon extends StatelessWidget {
         ),
         child: Center(
           child: Icon(
-            Icons.house_outlined,
-            color: Colors.greenAccent,
+            iconData,
+            color: outline,
           ),
         ),
       ),

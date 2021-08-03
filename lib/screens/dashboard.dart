@@ -22,11 +22,14 @@ class Dashboard extends StatelessWidget {
                 _buildActions(),
                 _buildGoalsHeading(),
                 _buildGoalsContent(),
+                _buildTransactionsHeading(),
+                _buildTransactionsContent()
               ],
             ),
           ),
         ),
       ),
+      //bottomNavigationBar: BottomNavigationBar(items: []),
     );
   }
 
@@ -157,30 +160,46 @@ class Dashboard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SquareIcon(),
+            SquareIcon(
+                iconData: Icons.house_outlined, outline: Colors.greenAccent),
             Expanded(
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'My own house',
-                        style: title,
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'My own house',
+                            style: title,
+                          ),
+                          RichText(
+                            text: TextSpan(
+                              children: <TextSpan>[
+                                TextSpan(text: '\$54280 / ', style: subtitle),
+                                TextSpan(text: '\$122000', style: title)
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                      RichText(
-                        text: TextSpan(
-                          children: <TextSpan>[
-                            TextSpan(text: '\$54280 / ', style: subtitle),
-                            TextSpan(text: '\$122000', style: title)
-                          ],
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 12.0),
+                      child: LinearProgressIndicator(
+                        value: 0.2,
+                        color: Colors.grey,
+                        backgroundColor: Colors.grey[300],
+                      ),
+                    ),
+                  )
+                ],
               ),
             ),
           ],
@@ -189,9 +208,70 @@ class Dashboard extends StatelessWidget {
     );
   }
 
-  Widget _buildTransactions() {
-    return Row(
-      children: [SquareIcon(), Column()],
+  Widget _buildTransactionsHeading() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 32.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'Transactions',
+            style: heading,
+          ),
+          Icon(Icons.arrow_forward_ios)
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTransactionsContent() {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 16.0),
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SquareIcon(
+                iconData: Icons.person_outline,
+                outline: Colors.yellowAccent[100]),
+            Expanded(
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Oleg D.',
+                            style: title,
+                          ),
+                          Text(
+                            '\$-150.00',
+                            style: title,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Sending Funds', style: subtitle),
+                        Text('17:40', style: subtitle)
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
