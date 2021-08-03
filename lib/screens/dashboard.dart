@@ -23,7 +23,10 @@ class Dashboard extends StatelessWidget {
                 _buildGoalsHeading(),
                 _buildGoalsContent(),
                 _buildTransactionsHeading(),
-                _buildTransactionsContent()
+                _buildTransactionsContent(
+                    name: 'Oleg D.', amount: -150.0, time: '17:40'),
+                _buildTransactionsContent(
+                    name: 'Alex H.', amount: -332.64, time: '18:11'),
               ],
             ),
           ),
@@ -111,7 +114,7 @@ class Dashboard extends StatelessWidget {
 
   Widget _buildActions() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         ActionButton(
           action: 'Send',
@@ -119,7 +122,7 @@ class Dashboard extends StatelessWidget {
           icon: Icons.arrow_forward,
         ),
         ActionButton(
-          action: 'Receive',
+          action: 'Request',
           color: Colors.greenAccent[100],
           icon: Icons.arrow_downward,
         ),
@@ -193,7 +196,7 @@ class Dashboard extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8.0, vertical: 12.0),
                       child: LinearProgressIndicator(
-                        value: 0.2,
+                        value: 54280 / 122000,
                         color: Colors.grey,
                         backgroundColor: Colors.grey[300],
                       ),
@@ -218,13 +221,14 @@ class Dashboard extends StatelessWidget {
             'Transactions',
             style: heading,
           ),
-          Icon(Icons.arrow_forward_ios)
+          Text('\$-482.64', style: heading),
         ],
       ),
     );
   }
 
-  Widget _buildTransactionsContent() {
+  Widget _buildTransactionsContent(
+      {String? name, double? amount, String? time}) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 16.0),
       child: IntrinsicHeight(
@@ -245,11 +249,11 @@ class Dashboard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Oleg D.',
+                            '$name',
                             style: title,
                           ),
                           Text(
-                            '\$-150.00',
+                            '\$${amount!.toStringAsFixed(2)}',
                             style: title,
                           )
                         ],
@@ -262,7 +266,7 @@ class Dashboard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text('Sending Funds', style: subtitle),
-                        Text('17:40', style: subtitle)
+                        Text('$time', style: subtitle)
                       ],
                     ),
                   ),
