@@ -1,4 +1,6 @@
+import 'package:banking_app/components/action_button.dart';
 import 'package:banking_app/components/credit_card.dart';
+import 'package:banking_app/components/square_icon.dart';
 import 'package:banking_app/styles/textstyles.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +16,13 @@ class Dashboard extends StatelessWidget {
         child: SafeArea(
           child: SingleChildScrollView(
             child: Column(
-              children: [_buildAppBar(), _buildCards()],
+              children: [
+                _buildAppBar(),
+                _buildCards(),
+                _buildActions(),
+                _buildGoalsHeading(),
+                _buildGoalsContent(),
+              ],
             ),
           ),
         ),
@@ -74,6 +82,14 @@ class Dashboard extends StatelessWidget {
                 borderRadius: BorderRadius.all(
                   Radius.circular(20.0),
                 ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey,
+                    blurRadius: 2.0,
+                    spreadRadius: 0.0,
+                    offset: Offset(2.0, 2.0), // shadow direction: bottom right
+                  )
+                ],
               ),
               height: 200,
               width: 50,
@@ -87,6 +103,95 @@ class Dashboard extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+
+  Widget _buildActions() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ActionButton(
+          action: 'Send',
+          color: Colors.deepOrange[100],
+          icon: Icons.arrow_forward,
+        ),
+        ActionButton(
+          action: 'Receive',
+          color: Colors.greenAccent[100],
+          icon: Icons.arrow_downward,
+        ),
+        ActionButton(
+          action: 'Exchange',
+          color: Colors.yellowAccent[100],
+          icon: Icons.swap_horiz,
+        ),
+        ActionButton(
+          action: 'Other',
+          color: Colors.grey[200],
+          icon: Icons.scatter_plot,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildGoalsHeading() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 32.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'Goals',
+            style: heading,
+          ),
+          Icon(Icons.arrow_forward_ios)
+        ],
+      ),
+    );
+  }
+
+  Widget _buildGoalsContent() {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 16.0),
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SquareIcon(),
+            Expanded(
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'My own house',
+                        style: title,
+                      ),
+                      RichText(
+                        text: TextSpan(
+                          children: <TextSpan>[
+                            TextSpan(text: '\$54280 / ', style: subtitle),
+                            TextSpan(text: '\$122000', style: title)
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTransactions() {
+    return Row(
+      children: [SquareIcon(), Column()],
     );
   }
 }

@@ -1,5 +1,8 @@
+import 'package:banking_app/providers/bank_provider.dart';
+import 'package:banking_app/providers/currency_provider.dart';
 import 'package:banking_app/styles/textstyles.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CreditCard extends StatelessWidget {
   const CreditCard({Key? key}) : super(key: key);
@@ -24,6 +27,14 @@ class CreditCard extends StatelessWidget {
               end: const FractionalOffset(0.0, 1.0),
               stops: [0.0, 1.0],
               tileMode: TileMode.clamp),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey,
+              blurRadius: 2.0,
+              spreadRadius: 0.0,
+              offset: Offset(2.0, 2.0), // shadow direction: bottom right
+            )
+          ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,9 +44,14 @@ class CreditCard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Physical / USD',
-                    style: subtitle,
+                  Selector<CurrencyProvider, String>(
+                    selector: (_, provider) => provider.currency!,
+                    builder: (context, currency, child) {
+                      return Text(
+                        currency == '\$' ? 'Physical / USD' : 'Physical / EURO',
+                        style: subtitle,
+                      );
+                    },
                   ),
                   IconButton(
                     icon: Icon(Icons.more_horiz),
@@ -49,9 +65,19 @@ class CreditCard extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(
-                    '\$22012.35',
-                    style: heading,
+                  child: Selector<CurrencyProvider, String>(
+                    selector: (_, provider) => provider.currency ?? '\$',
+                    builder: (context, currency, child) {
+                      return Selector<BankProvider, double>(
+                        selector: (_, provider) => provider.credit ?? 0.0,
+                        builder: (context, credit, child) {
+                          return Text(
+                            '$currency${credit.toStringAsFixed(2)}',
+                            style: heading,
+                          );
+                        },
+                      );
+                    },
                   ),
                 ),
               ),

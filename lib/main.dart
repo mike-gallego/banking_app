@@ -1,5 +1,8 @@
+import 'package:banking_app/providers/bank_provider.dart';
+import 'package:banking_app/providers/currency_provider.dart';
 import 'package:banking_app/screens/dashboard.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,7 +13,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Banking App',
-      home: Dashboard(),
+      home: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) => CurrencyProvider(),
+            lazy: false,
+          ),
+          ChangeNotifierProvider(
+            create: (context) => BankProvider(),
+            lazy: false,
+          ),
+        ],
+        child: Dashboard(),
+      ),
     );
   }
 }
