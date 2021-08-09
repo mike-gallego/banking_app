@@ -14,10 +14,10 @@ class CurrencyProvider extends ChangeNotifier {
     if (_currency! == '\$') {
       _currency = '\€';
       Provider.of<BankProvider>(context, listen: false)
-          .setCredit(credit * 1.19);
+          .setCredit(credit * 1.1737166);
     } else {
       Provider.of<BankProvider>(context, listen: false)
-          .setCredit(credit * 0.84);
+          .setCredit(credit * 0.851994);
       _currency = '\$';
     }
     notifyListeners();
